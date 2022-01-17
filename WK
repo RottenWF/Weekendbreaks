@@ -1,0 +1,67 @@
+public class Main {
+    public static void main(String[] args) {
+
+        int breakminusthree = 148020; // what break driver had 3 weeks ago, in seconds
+        int breakminustwo = 176640; // what break driver had 2 weeks ago, in seconds
+        int breakminusone = 127080; // what break driver had 1 week ago, in seconds
+
+        int hoursminusthree = (breakminusthree/60)/60;
+        int minutesminusthree = (breakminusthree/60)%60;
+        String strminmth=(minutesminusthree<10)?"0"+Integer.toString(minutesminusthree):Integer.toString(minutesminusthree);
+        String strhrsmth=(hoursminusthree<10)?"0"+Integer.toString(hoursminusthree):Integer.toString(hoursminusthree);
+
+        int hoursminustwo = (breakminustwo/60)/60;
+        int minutesminustwo = (breakminustwo/60)%60;
+        String strminmtw=(minutesminustwo<10)?"0"+Integer.toString(minutesminustwo):Integer.toString(minutesminustwo);
+        String strhrsmtw=(hoursminustwo<10)?"0"+Integer.toString(hoursminustwo):Integer.toString(hoursminustwo);
+
+        int hoursminusone = (breakminusone/60)/60;
+        int minutesminusone = (breakminusone/60)%60;
+        String strminmo=(minutesminusone<10)?"0"+Integer.toString(minutesminusone):Integer.toString(minutesminusone);
+        String strhrsmo=(hoursminusone<10)?"0"+Integer.toString(hoursminusone):Integer.toString(hoursminusone);
+
+        System.out.println("Your break 3 weeks ago was " + strhrsmth + " hours and " + strminmth + " minutes");
+        System.out.println("Your break 2 weeks ago was " + strhrsmtw + " hours and " + strminmtw + " minutes");
+        System.out.println("Your break 1 week ago was " + strhrsmo + " hours and " + strminmo + " minutes");
+        // all of above is just to check what kind of driver already had, it also changes it to h/m
+
+        int nextbreak;
+        int compensation;
+        int compensation_hours;
+        int compensation_minutes;
+
+        if (breakminusone < 162000 && breakminustwo < 162000 ) {
+            nextbreak = 45;
+            compensation = (162000 - breakminustwo) + (162000 - breakminusone) + 3600;
+            compensation_hours = (compensation/60)/60;
+            compensation_minutes = (compensation/60)%60;
+            System.out.println("Your next weekend break is " + nextbreak + "H");
+            System.out.println("You need to compensate also: " + compensation_hours + " hours " + compensation_minutes + " minutes");
+        } else if (breakminusone < 162000 && breakminustwo >= 162000){
+            nextbreak = 45;
+            if (breakminusone < 162000 && breakminusthree < 162000) {
+                compensation = (162000 - breakminusthree) + (162000 - breakminustwo) + (162000 - breakminusone);
+                compensation_hours = (compensation/60)/60;
+                compensation_minutes = (compensation/60)%60;
+                if (compensation_hours > 0 ) {
+                    System.out.println("Your next weekend break is " + nextbreak + "H");
+                    System.out.println("You need to compensate also: " + compensation_hours + " hours " + compensation_minutes + " minutes" );
+                } else {
+                    nextbreak = 45;
+                    System.out.println("Your next weekend break is " + nextbreak + "H");
+                }
+
+            } else {
+                System.out.println("Your next weekend break is " + nextbreak + "H");
+            }
+        }
+        else if (breakminusone >= 162000) {
+            nextbreak = 24;
+            System.out.println("Your next weekend break is " + nextbreak + "H");
+        } else {
+            System.out.println("Not accepted input");
+        }
+
+    }
+
+}
